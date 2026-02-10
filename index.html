@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PASIG Tax Admin - Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+<div class="animated-bg">
+  <div class="gradient-orb orb-1"></div>
+  <div class="gradient-orb orb-2"></div>
+  <div class="gradient-orb orb-3"></div>
+</div>
+
+<div class="container" id="container">
+
+  <!-- SIGN UP -->
+  <div class="form-container sign-up">
+    <form id="signUpForm">
+      <div class="logo-section">
+        <div class="logo-circle">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <h1>Create Account</h1>
+        <p class="subtitle">Join the PASIG Tax Administration</p>
+      </div>
+
+      <div class="social-icons">
+        <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="icon"><i class="fab fa-google"></i></a>
+        <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="icon"><i class="fab fa-github"></i></a>
+      </div>
+
+      <span class="divider-text">or use your email for registration</span>
+      
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" placeholder="Full Name" required />
+      </div>
+      
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="text" placeholder="Email Address" required />
+      </div>
+      
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" placeholder="Password" required />
+      </div>
+      
+      <button type="submit" class="btn-primary">
+        <span>Create Account</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </form>
+  </div>
+
+  <!-- SIGN IN -->
+  <div class="form-container sign-in">
+    <form id="signInForm">
+      <div class="logo-section">
+        <div class="logo-circle">
+          <i class="fas fa-landmark"></i>
+        </div>
+        <h1>Welcome Back</h1>
+        <p class="subtitle">Sign in to PASIG Tax Administration</p>
+      </div>
+
+      <div class="social-icons">
+        <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="icon"><i class="fab fa-google"></i></a>
+        <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="icon"><i class="fab fa-github"></i></a>
+      </div>
+
+      <span class="divider-text">or use your credentials</span>
+      
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="text" id="emailInput" placeholder="Email or Username" required />
+      </div>
+      
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="passwordInput" placeholder="Password" required />
+      </div>
+      
+      <a href="#" class="forgot-link">Forgot Your Password?</a>
+      
+      <button type="submit" class="btn-primary">
+        <span>Sign In</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+
+      <div class="info-box">
+        <i class="fas fa-info-circle"></i>
+        <span>Demo: Use <strong>admin</strong> / <strong>admin</strong></span>
+      </div>
+    </form>
+  </div>
+
+  <!-- OVERLAY -->
+  <div class="overlay-container">
+    <div class="overlay">
+
+      <div class="overlay-panel overlay-left">
+        <div class="overlay-content">
+          <i class="fas fa-sign-in-alt overlay-icon"></i>
+          <h1>Already Have Account?</h1>
+          <p>Sign in to access your dashboard and manage tax administration</p>
+          <button class="btn-ghost" id="signIn">
+            <span>Sign In</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="overlay-panel overlay-right">
+        <div class="overlay-content">
+          <i class="fas fa-user-circle overlay-icon"></i>
+          <h1>New to PASIG?</h1>
+          <p>Create an account to get started with our tax administration system</p>
+          <button class="btn-ghost" id="signUp">
+            <span>Sign Up</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>

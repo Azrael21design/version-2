@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PASIG Tax Admin - Reports</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="Reports.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <div class="logo-badge">
+          <i class="fas fa-landmark"></i>
+        </div>
+        <div class="logo-text">
+          <h2>PASIG</h2>
+          <p>Tax Administration</p>
+        </div>
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="AdminDashboard.html" class="nav-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="Occupation.html" class="nav-item">
+        <i class="fas fa-briefcase"></i>
+        <span>Occupation</span>
+      </a>
+      <a href="Transaction.html" class="nav-item">
+        <i class="fas fa-receipt"></i>
+        <span>Transactions</span>
+      </a>
+      <a href="IDManagement.html" class="nav-item">
+        <i class="fas fa-id-card"></i>
+        <span>ID Management</span>
+      </a>
+      <a href="Reports.html" class="nav-item active">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Reports</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="user-avatar">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="user-info">
+          <h4 id="sidebarUsername">Mike</h4>
+          <p>Administrator</p>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+  <button class="sidebar-float-toggle" id="sidebarFloatToggle" aria-label="Toggle navigation">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="welcome-section">
+        <h1>REPORTS & ANALYTICS</h1>
+      </div>
+      <div class="top-bar-actions">
+        <button class="notification-btn">
+          <i class="far fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <p class="current-date">
+          <i class="far fa-calendar"></i>
+          <span id="currentDate">February 18, 2026</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- Reports Content -->
+    <section class="reports-content">
+      
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="date-filters">
+          <div class="filter-group">
+            <label>From:</label>
+            <input type="date" id="fromDate" class="date-input">
+          </div>
+          <div class="filter-group">
+            <label>To:</label>
+            <input type="date" id="toDate" class="date-input">
+          </div>
+          <button class="filter-btn" onclick="applyDateFilter()">
+            <i class="fas fa-filter"></i>
+            Apply Filter
+          </button>
+        </div>
+        <div class="quick-filters">
+          <button class="quick-filter-btn active" onclick="quickFilter('today')">Today</button>
+          <button class="quick-filter-btn" onclick="quickFilter('week')">This Week</button>
+          <button class="quick-filter-btn" onclick="quickFilter('month')">This Month</button>
+          <button class="quick-filter-btn" onclick="quickFilter('year')">This Year</button>
+        </div>
+      </div>
+
+      <!-- Revenue Stats -->
+      <div class="revenue-section">
+        <h2 class="section-title">
+          <i class="fas fa-coins"></i>
+          Revenue Overview
+        </h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Total Revenue</h3>
+              <p class="stat-number">₱2.4M</p>
+              <span class="stat-change positive">
+                <i class="fas fa-arrow-up"></i> 15% from last period
+              </span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="stat-info">
+              <h3>This Month</h3>
+              <p class="stat-number">₱345K</p>
+              <span class="stat-change positive">
+                <i class="fas fa-arrow-up"></i> 22% increase
+              </span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <i class="fas fa-calendar-day"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Today</h3>
+              <p class="stat-number">₱12.5K</p>
+              <span class="stat-change">Target: ₱15K</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon orange">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Avg. Per Taxpayer</h3>
+              <p class="stat-number">₱1,950</p>
+              <span class="stat-change">Based on 1,234 taxpayers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="charts-section">
+        <div class="chart-card">
+          <div class="card-header">
+            <h3>Revenue Trend</h3>
+            <div class="chart-controls">
+              <button class="chart-btn active">Monthly</button>
+              <button class="chart-btn">Weekly</button>
+              <button class="chart-btn">Daily</button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="card-header">
+            <h3>Transaction Types</h3>
+          </div>
+          <div class="chart-container chart-small">
+            <canvas id="transactionPieChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reports Grid -->
+      <div class="reports-grid">
+        <!-- Transaction Report -->
+        <div class="report-card">
+          <div class="report-header">
+            <div class="report-icon blue">
+              <i class="fas fa-receipt"></i>
+            </div>
+            <div class="report-info">
+              <h3>Transaction Report</h3>
+              <p>Complete transaction history with details</p>
+            </div>
+          </div>
+          <div class="report-stats">
+            <div class="report-stat">
+              <label>Total Transactions:</label>
+              <span>1,847</span>
+            </div>
+            <div class="report-stat">
+              <label>This Period:</label>
+              <span>234</span>
+            </div>
+          </div>
+          <button class="report-btn" onclick="generateReport('transactions')">
+            <i class="fas fa-file-download"></i>
+            Generate Report
+          </button>
+        </div>
+
+        <!-- Revenue Report -->
+        <div class="report-card">
+          <div class="report-header">
+            <div class="report-icon green">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <div class="report-info">
+              <h3>Revenue Report</h3>
+              <p>Detailed breakdown of revenue sources</p>
+            </div>
+          </div>
+          <div class="report-stats">
+            <div class="report-stat">
+              <label>Total Revenue:</label>
+              <span>₱2.4M</span>
+            </div>
+            <div class="report-stat">
+              <label>Collections:</label>
+              <span>1,234</span>
+            </div>
+          </div>
+          <button class="report-btn" onclick="generateReport('revenue')">
+            <i class="fas fa-file-download"></i>
+            Generate Report
+          </button>
+        </div>
+
+        <!-- Taxpayer Report -->
+        <div class="report-card">
+          <div class="report-header">
+            <div class="report-icon purple">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="report-info">
+              <h3>Taxpayer Report</h3>
+              <p>Statistics and demographics</p>
+            </div>
+          </div>
+          <div class="report-stats">
+            <div class="report-stat">
+              <label>Total Taxpayers:</label>
+              <span>1,234</span>
+            </div>
+            <div class="report-stat">
+              <label>New This Month:</label>
+              <span>78</span>
+            </div>
+          </div>
+          <button class="report-btn" onclick="generateReport('taxpayers')">
+            <i class="fas fa-file-download"></i>
+            Generate Report
+          </button>
+        </div>
+
+        <!-- ID Cards Report -->
+        <div class="report-card">
+          <div class="report-header">
+            <div class="report-icon orange">
+              <i class="fas fa-id-card"></i>
+            </div>
+            <div class="report-info">
+              <h3>ID Cards Report</h3>
+              <p>Issued, active, and expired IDs</p>
+            </div>
+          </div>
+          <div class="report-stats">
+            <div class="report-stat">
+              <label>Total Issued:</label>
+              <span>1,234</span>
+            </div>
+            <div class="report-stat">
+              <label>Active:</label>
+              <span>1,156</span>
+            </div>
+          </div>
+          <button class="report-btn" onclick="generateReport('ids')">
+            <i class="fas fa-file-download"></i>
+            Generate Report
+          </button>
+        </div>
+
+        <!-- Encoder Performance -->
+        <div class="report-card">
+          <div class="report-header">
+            <div class="report-icon cyan">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="report-info">
+              <h3>Encoder Performance</h3>
+              <p>Staff productivity and statistics</p>
+            </div>
+          </div>
+          <div class="report-stats">
+            <div class="report-stat">
+              <label>Total Encoders:</label>
+              <span>12</span>
+            </div>
+            <div class="report-stat">
+              <label>Avg. Transactions:</label>
+              <span>154/day</span>
+            </div>
+          </div>
+          <button class="report-btn" onclick="generateReport('encoders')">
+            <i class="fas fa-file-download"></i>
+            Generate Report
+          </button>
+        </div>
+
+        <!-- Summary Report -->
+        <div class="report-card">
+          <div class="report-header">
+            <div class="report-icon pink">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="report-info">
+              <h3>Summary Report</h3>
+              <p>Complete overview of all activities</p>
+            </div>
+          </div>
+          <div class="report-stats">
+            <div class="report-stat">
+              <label>Report Period:</label>
+              <span>February 2026</span>
+            </div>
+            <div class="report-stat">
+              <label>Status:</label>
+              <span class="status-success">Complete</span>
+            </div>
+          </div>
+          <button class="report-btn" onclick="generateReport('summary')">
+            <i class="fas fa-file-download"></i>
+            Generate Report
+          </button>
+        </div>
+      </div>
+
+      <!-- Top Performers Table -->
+      <div class="table-section">
+        <div class="card-header">
+          <h3><i class="fas fa-trophy"></i> Top Performing Encoders</h3>
+          <button class="export-btn" onclick="exportTopPerformers()">
+            <i class="fas fa-file-excel"></i>
+            Export to Excel
+          </button>
+        </div>
+        <div class="table-container">
+          <table class="performers-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Encoder</th>
+                <th>Transactions</th>
+                <th>Revenue Generated</th>
+                <th>Avg. Processing Time</th>
+                <th>Performance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="rank-badge gold">1</span></td>
+                <td>Mike</td>
+                <td>487</td>
+                <td>₱785,000</td>
+                <td>3.2 mins</td>
+                <td>
+                  <div class="performance-bar">
+                    <div class="performance-fill" style="width: 95%"></div>
+                  </div>
+                  <span class="performance-text">95%</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge silver">2</span></td>
+                <td>Caloy</td>
+                <td>423</td>
+                <td>₱672,000</td>
+                <td>3.8 mins</td>
+                <td>
+                  <div class="performance-bar">
+                    <div class="performance-fill" style="width: 88%"></div>
+                  </div>
+                  <span class="performance-text">88%</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge bronze">3</span></td>
+                <td>Lea</td>
+                <td>398</td>
+                <td>₱645,000</td>
+                <td>4.1 mins</td>
+                <td>
+                  <div class="performance-bar">
+                    <div class="performance-fill" style="width: 82%"></div>
+                  </div>
+                  <span class="performance-text">82%</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge">4</span></td>
+                <td>Ana</td>
+                <td>356</td>
+                <td>₱578,000</td>
+                <td>4.5 mins</td>
+                <td>
+                  <div class="performance-bar">
+                    <div class="performance-fill" style="width: 75%"></div>
+                  </div>
+                  <span class="performance-text">75%</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge">5</span></td>
+                <td>Carlos</td>
+                <td>289</td>
+                <td>₱467,000</td>
+                <td>5.2 mins</td>
+                <td>
+                  <div class="performance-bar">
+                    <div class="performance-fill" style="width: 68%"></div>
+                  </div>
+                  <span class="performance-text">68%</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="Reports.js"></script>
+</body>
+</html>

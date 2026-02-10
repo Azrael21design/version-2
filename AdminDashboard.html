@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PASIG Tax Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="AdminDashboard.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <div class="logo-badge">
+          <i class="fas fa-landmark"></i>
+        </div>
+        <div class="logo-text">
+          <h2>PASIG</h2>
+          <p>Tax Administration</p>
+        </div>
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="AdminDashboard.html" class="nav-item active">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="occupation.html" class="nav-item">
+        <i class="fas fa-briefcase"></i>
+        <span>Occupation</span>
+      </a>
+      <a href="Transaction.html" class="nav-item">
+        <i class="fas fa-receipt"></i>
+        <span>Transactions</span>
+      </a>
+      <a href="IDManagement.html" class="nav-item">
+        <i class="fas fa-id-card"></i>
+        <span>ID Management</span>
+      </a>
+      <a href="Reports.html" class="nav-item">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Reports</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="user-avatar">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="user-info">
+          <h4>Admin User</h4>
+          <p>Administrator</p>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+  <button class="sidebar-float-toggle" id="sidebarFloatToggle" aria-label="Toggle navigation">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="welcome-section">
+        <h1>WELCOME BACK ADMIN,</h1>
+
+      </div>
+      <div class="top-bar-actions">
+        <button class="notification-btn">
+          <i class="far fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <p class="current-date">
+          <i class="far fa-calendar"></i>
+          <span id="currentDate"></span>
+        </p>
+      </div>
+    </header>
+
+    <!-- Dashboard Cards -->
+    <section class="dashboard-content">
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <div class="stat-info">
+            <h3>New Tax Payers</h3>
+            <p class="stat-number">156</p>
+            <span class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 12% from last month
+            </span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <div class="stat-info">
+            <h3>New Transactions</h3>
+            <p class="stat-number">847</p>
+            <span class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 8% from last month
+            </span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <i class="fas fa-print"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Printed IDs</h3>
+            <p class="stat-number">423</p>
+            <span class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 15% from last month
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Main Cards Section -->
+      <div class="cards-grid">
+        <!-- New Tax Payers Card -->
+        <div class="data-card">
+          <div class="card-header">
+            <h2>NEW TAX PAYERS</h2>
+            <button class="action-btn">
+              <i class="fas fa-plus"></i>
+              Add New
+            </button>
+          </div>
+          <div class="data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID No.</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TP-2026-001</td>
+                  <td>Juan Dela Cruz</td>
+                  <td><span class="status-badge active">Active</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-edit"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TP-2026-002</td>
+                  <td>Maria Santos</td>
+                  <td><span class="status-badge active">Active</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-edit"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TP-2026-003</td>
+                  <td>Pedro Reyes</td>
+                  <td><span class="status-badge pending">Pending</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-edit"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TP-2026-004</td>
+                  <td>Ana Garcia</td>
+                  <td><span class="status-badge active">Active</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-edit"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TP-2026-005</td>
+                  <td>Carlos Mendoza</td>
+                  <td><span class="status-badge pending">Pending</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-edit"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- New Transactions Card -->
+        <div class="data-card">
+          <div class="card-header">
+            <h2>NEW TRANSACTIONS</h2>
+            <button class="action-btn">
+              <i class="fas fa-file-export"></i>
+              Export
+            </button>
+          </div>
+          <div class="data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID No.</th>
+                  <th>Name</th>
+                  <th>Process</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TX-001</td>
+                  <td>Juan Dela Cruz</td>
+                  <td><span class="process-badge completed">Completed</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-download"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TX-002</td>
+                  <td>Maria Santos</td>
+                  <td><span class="process-badge processing">Processing</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-download"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TX-003</td>
+                  <td>Pedro Reyes</td>
+                  <td><span class="process-badge completed">Completed</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-download"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TX-004</td>
+                  <td>Ana Garcia</td>
+                  <td><span class="process-badge processing">Processing</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-download"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>TX-005</td>
+                  <td>Carlos Mendoza</td>
+                  <td><span class="process-badge pending">Pending</span></td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-download"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Printed IDs Card -->
+        <div class="data-card">
+          <div class="card-header">
+            <h2>PRINTED ID's</h2>
+            <button class="action-btn">
+              <i class="fas fa-print"></i>
+              Print New
+            </button>
+          </div>
+          <div class="data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID No.</th>
+                  <th>Name</th>
+                  <th>Print Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ID-001</td>
+                  <td>Juan Dela Cruz</td>
+                  <td>Feb 18, 2026</td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-redo"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>ID-002</td>
+                  <td>Maria Santos</td>
+                  <td>Feb 18, 2026</td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-redo"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>ID-003</td>
+                  <td>Pedro Reyes</td>
+                  <td>Feb 17, 2026</td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-redo"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>ID-004</td>
+                  <td>Ana Garcia</td>
+                  <td>Feb 17, 2026</td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-redo"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>ID-005</td>
+                  <td>Carlos Mendoza</td>
+                  <td>Feb 16, 2026</td>
+                  <td>
+                    <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                    <button class="icon-btn"><i class="fas fa-redo"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Chart -->
+      <div class="chart-card">
+        <div class="card-header">
+          <h2>ACTIVITY OVERVIEW</h2>
+          <div class="chart-controls">
+            <button class="chart-btn active">Week</button>
+            <button class="chart-btn">Month</button>
+            <button class="chart-btn">Year</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="activityChart"></canvas>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="AdminDashboard.js"></script>
+</body>
+</html>

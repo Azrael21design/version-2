@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PASIG Tax - User Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="UserPortal.css" />
+</head>
+<body>
+
+<!-- Background with City Overlay -->
+<div class="portal-background">
+  <div class="gradient-overlay"></div>
+  <div class="city-pattern"></div>
+</div>
+
+<!-- Main Portal Container -->
+<div class="portal-container">
+  
+  <!-- Header Section -->
+  <div class="portal-header">
+    <div class="logo-badge">
+      <i class="fas fa-landmark"></i>
+    </div>
+    <h1>PASIG TAX PORTAL</h1>
+    <p class="welcome-text">Welcome back! Choose an option below to continue</p>
+  </div>
+
+  <!-- Icon Menu Grid -->
+  <div class="icon-menu">
+    
+    <!-- Apply -->
+    <div class="menu-item" data-page="apply">
+      <div class="icon-circle">
+        <i class="fas fa-file-edit"></i>
+      </div>
+      <h3>APPLY</h3>
+      <p>Submit new application</p>
+    </div>
+
+    <!-- Track My Application -->
+    <div class="menu-item" data-page="track">
+      <div class="icon-circle">
+        <i class="fas fa-map-marker-alt"></i>
+        <div class="check-overlay">
+          <i class="fas fa-check"></i>
+        </div>
+      </div>
+      <h3>TRACK MY APPLICATION</h3>
+      <p>Check application status</p>
+    </div>
+
+    <!-- History -->
+    <div class="menu-item" data-page="history">
+      <div class="icon-circle">
+        <i class="fas fa-history"></i>
+      </div>
+      <h3>HISTORY</h3>
+      <p>View past transactions</p>
+    </div>
+
+    <!-- My Profile -->
+    <div class="menu-item" data-page="profile">
+      <div class="icon-circle">
+        <i class="fas fa-user-circle"></i>
+      </div>
+      <h3>MY PROFILE</h3>
+      <p>View and manage profile</p>
+    </div>
+
+  </div>
+
+  <!-- Logout Button -->
+  <div class="portal-footer">
+    <button class="logout-btn" onclick="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Logout</span>
+    </button>
+  </div>
+
+</div>
+
+<!-- Profile Form Modal -->
+<div class="profile-modal" id="profileModal">
+  <div class="modal-overlay" onclick="closeProfileModal()"></div>
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2><i class="fas fa-user-edit"></i> Complete Your Profile</h2>
+      <button class="close-modal-btn" onclick="closeProfileModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <form id="profileForm" class="profile-form">
+      <div class="form-grid">
+        <!-- Left Column - Personal Details -->
+        <div class="form-column">
+          <h3 class="column-title">Personal Information</h3>
+          
+          <div class="form-group">
+            <label>Last Name <span class="required">*</span></label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+          
+          <div class="form-group">
+            <label>First Name <span class="required">*</span></label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Middle Name</label>
+            <input type="text" id="middleName" name="middleName">
+          </div>
+          
+          <div class="form-group">
+            <label>Address <span class="required">*</span></label>
+            <textarea id="address" name="address" rows="3" required></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Birthdate <span class="required">*</span></label>
+              <input type="date" id="birthdate" name="birthdate" required>
+            </div>
+            
+            <div class="form-group">
+              <label>Gender <span class="required">*</span></label>
+              <select id="gender" name="gender" required>
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column - Contact & Photo -->
+        <div class="form-column">
+          <h3 class="column-title">Contact & Photo</h3>
+          
+          <div class="form-group">
+            <label>Citizenship <span class="required">*</span></label>
+            <select id="citizenship" name="citizenship" required>
+              <option value="">Select</option>
+              <option value="Filipino">Filipino</option>
+              <option value="American">American</option>
+              <option value="Chinese">Chinese</option>
+              <option value="Japanese">Japanese</option>
+              <option value="Korean">Korean</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Mobile No. <span class="required">*</span></label>
+            <input type="tel" id="mobile" name="mobile" placeholder="09XX XXX XXXX" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Email Address <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label>2x2 Photo <span class="required">*</span></label>
+            <div class="photo-upload-container">
+              <div class="photo-preview" id="photoPreview">
+                <i class="fas fa-user fa-3x"></i>
+                <p>Click to upload photo</p>
+              </div>
+              <input type="file" id="photoInput" accept="image/*" required style="display: none;">
+              <button type="button" class="upload-btn" onclick="document.getElementById('photoInput').click()">
+                <i class="fas fa-camera"></i> Choose Photo
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" onclick="closeProfileModal()">Cancel</button>
+        <button type="submit" class="btn-submit">
+          <i class="fas fa-check"></i> Submit Profile
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Completed Profile View Modal -->
+<div class="profile-modal" id="profileViewModal">
+  <div class="modal-overlay" onclick="closeProfileView()"></div>
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2><i class="fas fa-id-card"></i> My Profile</h2>
+      <button class="close-modal-btn" onclick="closeProfileView()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="profile-view-content">
+      <!-- Account ID Banner -->
+      <div class="account-id-banner">
+        <div class="id-label">Account ID</div>
+        <div class="id-number" id="displayAccountID">LOADING...</div>
+      </div>
+      
+      <div class="profile-display-grid">
+        <!-- Photo Section -->
+        <div class="profile-photo-section">
+          <div class="profile-photo-frame">
+            <img id="displayPhoto" src="" alt="Profile Photo">
+          </div>
+          <button class="btn-request-edit" onclick="requestEdit()">
+            <i class="fas fa-edit"></i> Request Edit
+          </button>
+        </div>
+        
+        <!-- Details Section -->
+        <div class="profile-details-section">
+          <div class="detail-row">
+            <label>Full Name:</label>
+            <span id="displayFullName">-</span>
+          </div>
+          
+          <div class="detail-row">
+            <label>Address:</label>
+            <span id="displayAddress">-</span>
+          </div>
+          
+          <div class="detail-row">
+            <label>Birthdate:</label>
+            <span id="displayBirthdate">-</span>
+          </div>
+          
+          <div class="detail-row">
+            <label>Gender:</label>
+            <span id="displayGender">-</span>
+          </div>
+          
+          <div class="detail-row">
+            <label>Citizenship:</label>
+            <span id="displayCitizenship">-</span>
+          </div>
+          
+          <div class="detail-row">
+            <label>Mobile No.:</label>
+            <span id="displayMobile">-</span>
+          </div>
+          
+          <div class="detail-row">
+            <label>Email:</label>
+            <span id="displayEmail">-</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="profile-info-note">
+        <i class="fas fa-info-circle"></i>
+        <span>Profile information cannot be edited directly. Click "Request Edit" to submit a change request to the administrator.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Apply Form Modal -->
+<div class="profile-modal" id="applyModal">
+  <div class="modal-overlay" onclick="closeApplyModal()"></div>
+  <div class="modal-container modal-large">
+    <div class="modal-header">
+      <h2><i class="fas fa-file-edit"></i> Submit New Application</h2>
+      <button class="close-modal-btn" onclick="closeApplyModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <form id="applyForm" class="apply-form">
+      <!-- Auto-filled Profile Section -->
+      <div class="auto-filled-section">
+        <h3 class="section-title">
+          <i class="fas fa-user-check"></i> Your Information
+          <span class="auto-filled-badge">Auto-filled from profile</span>
+        </h3>
+        
+        <div class="profile-summary-grid">
+          <div class="profile-summary-photo">
+            <img id="applyPhoto" src="" alt="Your Photo">
+            <div class="account-id-chip" id="applyAccountID">ACC-000000</div>
+          </div>
+          
+          <div class="profile-summary-details">
+            <div class="summary-row">
+              <label>Full Name:</label>
+              <span id="applyFullName">-</span>
+            </div>
+            <div class="summary-row">
+              <label>Address:</label>
+              <span id="applyAddress">-</span>
+            </div>
+            <div class="summary-row">
+              <label>Birthdate:</label>
+              <span id="applyBirthdate">-</span>
+            </div>
+            <div class="summary-row">
+              <label>Gender:</label>
+              <span id="applyGender">-</span>
+            </div>
+            <div class="summary-row">
+              <label>Citizenship:</label>
+              <span id="applyCitizenship">-</span>
+            </div>
+            <div class="summary-row">
+              <label>Mobile:</label>
+              <span id="applyMobile">-</span>
+            </div>
+            <div class="summary-row">
+              <label>Email:</label>
+              <span id="applyEmail">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Application Fields -->
+      <div class="new-fields-section">
+        <h3 class="section-title">
+          <i class="fas fa-edit"></i> Application Details
+        </h3>
+        
+        <div class="form-grid-2col">
+          <div class="form-group">
+            <label>Purpose <span class="required">*</span></label>
+            <select id="applyPurpose" name="purpose" required>
+              <option value="">Select Purpose</option>
+              <option value="new">New Application</option>
+              <option value="renewal">Renewal</option>
+              <option value="for_op">For Operation</option>
+              <option value="update">Update Information</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Occupation <span class="required">*</span></label>
+            <input type="text" id="applyOccupation" name="occupation" 
+                   placeholder="e.g., Business Owner, Employee, Self-employed" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Required Documents -->
+      <div class="documents-section">
+        <h3 class="section-title">
+          <i class="fas fa-paperclip"></i> Required Documents
+        </h3>
+        
+        <div class="documents-grid">
+          <!-- NBI Clearance -->
+          <div class="document-upload-card">
+            <div class="document-header">
+              <i class="fas fa-shield-alt"></i>
+              <span>NBI Clearance <span class="required">*</span></span>
+            </div>
+            <div class="document-preview" id="nbiPreview">
+              <i class="fas fa-file-pdf fa-2x"></i>
+              <p>Click to upload</p>
+            </div>
+            <input type="file" id="nbiInput" accept=".pdf,.jpg,.jpeg,.png" 
+                   required style="display: none;">
+            <button type="button" class="upload-doc-btn" 
+                    onclick="document.getElementById('nbiInput').click()">
+              <i class="fas fa-upload"></i> Upload NBI
+            </button>
+            <span class="file-name" id="nbiFileName"></span>
+          </div>
+
+          <!-- Cedula -->
+          <div class="document-upload-card">
+            <div class="document-header">
+              <i class="fas fa-id-card"></i>
+              <span>Cedula <span class="required">*</span></span>
+            </div>
+            <div class="document-preview" id="cedulaPreview">
+              <i class="fas fa-file-pdf fa-2x"></i>
+              <p>Click to upload</p>
+            </div>
+            <input type="file" id="cedulaInput" accept=".pdf,.jpg,.jpeg,.png" 
+                   required style="display: none;">
+            <button type="button" class="upload-doc-btn" 
+                    onclick="document.getElementById('cedulaInput').click()">
+              <i class="fas fa-upload"></i> Upload Cedula
+            </button>
+            <span class="file-name" id="cedulaFileName"></span>
+          </div>
+
+          <!-- Health Certificate -->
+          <div class="document-upload-card">
+            <div class="document-header">
+              <i class="fas fa-heartbeat"></i>
+              <span>Health Certificate <span class="required">*</span></span>
+            </div>
+            <div class="document-preview" id="healthPreview">
+              <i class="fas fa-file-pdf fa-2x"></i>
+              <p>Click to upload</p>
+            </div>
+            <input type="file" id="healthInput" accept=".pdf,.jpg,.jpeg,.png" 
+                   required style="display: none;">
+            <button type="button" class="upload-doc-btn" 
+                    onclick="document.getElementById('healthInput').click()">
+              <i class="fas fa-upload"></i> Upload Health Cert
+            </button>
+            <span class="file-name" id="healthFileName"></span>
+          </div>
+        </div>
+
+        <div class="file-info-note">
+          <i class="fas fa-info-circle"></i>
+          <span>Accepted formats: PDF, JPG, PNG • Maximum file size: 5MB each</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" onclick="closeApplyModal()">Cancel</button>
+        <button type="submit" class="btn-submit-apply">
+          <i class="fas fa-paper-plane"></i> Submit Application
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Track Application Modal -->
+<div class="profile-modal" id="trackModal">
+  <div class="modal-overlay" onclick="closeTrackModal()"></div>
+  <div class="modal-container modal-large">
+    <div class="modal-header">
+      <h2><i class="fas fa-map-marker-alt"></i> Track My Applications</h2>
+      <button class="close-modal-btn" onclick="closeTrackModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="track-content">
+      <!-- Applications List -->
+      <div class="applications-list" id="applicationsList">
+        <!-- Will be populated by JavaScript -->
+      </div>
+      
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <i class="fas fa-inbox fa-3x"></i>
+        <h3>No Applications Yet</h3>
+        <p>You haven't submitted any applications yet.</p>
+        <button class="btn-primary-small" onclick="closeTrackModal(); handleMenuClick('apply');">
+          <i class="fas fa-plus"></i> Submit Application
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Application Details Modal -->
+<div class="profile-modal" id="appDetailsModal">
+  <div class="modal-overlay" onclick="closeAppDetailsModal()"></div>
+  <div class="modal-container modal-large">
+    <div class="modal-header">
+      <h2><i class="fas fa-file-alt"></i> Application Details</h2>
+      <button class="close-modal-btn" onclick="closeAppDetailsModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="app-details-content">
+      <!-- Application Info -->
+      <div class="app-info-card">
+        <div class="app-id-display">
+          <span class="app-id-label">Application ID</span>
+          <span class="app-id-number" id="detailAppID">-</span>
+        </div>
+        <div class="app-meta">
+          <div class="meta-item">
+            <i class="fas fa-calendar"></i>
+            <span id="detailSubmitDate">-</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-briefcase"></i>
+            <span id="detailOccupation">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Tracker -->
+      <div class="progress-tracker">
+        <h3 class="tracker-title">Application Progress</h3>
+        <div class="progress-steps">
+          <!-- Step 1: Applied -->
+          <div class="progress-step completed" id="step1">
+            <div class="step-icon">
+              <i class="fas fa-file-edit"></i>
+            </div>
+            <div class="step-content">
+              <h4>Applied</h4>
+              <p>Application submitted</p>
+            </div>
+            <div class="step-connector"></div>
+          </div>
+
+          <!-- Step 2: Payment -->
+          <div class="progress-step" id="step2">
+            <div class="step-icon">
+              <i class="fas fa-credit-card"></i>
+            </div>
+            <div class="step-content">
+              <h4>Payment</h4>
+              <p>Processing fee payment</p>
+            </div>
+            <div class="step-connector"></div>
+          </div>
+
+          <!-- Step 3: Verification -->
+          <div class="progress-step" id="step3">
+            <div class="step-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="step-content">
+              <h4>Verification</h4>
+              <p>Document verification</p>
+            </div>
+            <div class="step-connector"></div>
+          </div>
+
+          <!-- Step 4: Done -->
+          <div class="progress-step" id="step4">
+            <div class="step-icon">
+              <i class="fas fa-flag-checkered"></i>
+            </div>
+            <div class="step-content">
+              <h4>Completed</h4>
+              <p>Ready for pickup</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="current-status-banner" id="statusBanner">
+          <i class="fas fa-info-circle"></i>
+          <span id="statusMessage">Your application is being processed</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="app-detail-actions">
+        <button class="btn-secondary" onclick="closeAppDetailsModal()">
+          <i class="fas fa-arrow-left"></i> Back to List
+        </button>
+        <button class="btn-primary-small" id="actionButton" style="display: none;">
+          <i class="fas fa-credit-card"></i> Make Payment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- History Modal -->
+<div class="profile-modal" id="historyModal">
+  <div class="modal-overlay" onclick="closeHistoryModal()"></div>
+  <div class="modal-container modal-large">
+    <div class="modal-header">
+      <h2><i class="fas fa-history"></i> Activity History</h2>
+      <button class="close-modal-btn" onclick="closeHistoryModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="history-content">
+      <!-- Filter Tabs -->
+      <div class="history-tabs">
+        <button class="history-tab active" onclick="filterHistory('all')">
+          <i class="fas fa-th-list"></i> All Activity
+        </button>
+        <button class="history-tab" onclick="filterHistory('applications')">
+          <i class="fas fa-file-alt"></i> Applications
+        </button>
+        <button class="history-tab" onclick="filterHistory('edits')">
+          <i class="fas fa-edit"></i> Edit Requests
+        </button>
+        <button class="history-tab" onclick="filterHistory('logins')">
+          <i class="fas fa-sign-in-alt"></i> Login History
+        </button>
+      </div>
+
+      <!-- Timeline -->
+      <div class="activity-timeline" id="activityTimeline">
+        <!-- Will be populated by JavaScript -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="historyEmptyState" style="display: none;">
+        <i class="fas fa-inbox fa-3x"></i>
+        <h3>No Activity Yet</h3>
+        <p>Your activity history will appear here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="UserPortal.js"></script>
+</body>
+</html>

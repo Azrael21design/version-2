@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PASIG Tax Admin - Occupation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="Occupation.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <div class="logo-badge">
+          <i class="fas fa-landmark"></i>
+        </div>
+        <div class="logo-text">
+          <h2>PASIG</h2>
+          <p>Tax Administration</p>
+        </div>
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="AdminDashboard.html" class="nav-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="Occupation.html" class="nav-item active">
+        <i class="fas fa-briefcase"></i>
+        <span>Occupation</span>
+      </a>
+      <a href="Transaction.html" class="nav-item">
+        <i class="fas fa-receipt"></i>
+        <span>Transactions</span>
+      </a>
+      <a href="IDManagement.html" class="nav-item">
+        <i class="fas fa-id-card"></i>
+        <span>ID Management</span>
+      </a>
+      <a href="Reports.html" class="nav-item">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Reports</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="user-avatar">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="user-info">
+          <h4 id="sidebarUsername">Mike</h4>
+          <p>Administrator</p>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+  <button class="sidebar-float-toggle" id="sidebarFloatToggle" aria-label="Toggle navigation">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="welcome-section">
+        <h1>OCCUPATION</h1>
+      </div>
+      <div class="top-bar-actions">
+        <button class="notification-btn">
+          <i class="far fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <p class="current-date">
+          <i class="far fa-calendar"></i>
+          <span id="currentDate">February 18, 2026</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- Occupation Content -->
+    <section class="occupation-content">
+      <!-- Search and Action Buttons -->
+      <div class="action-bar">
+        <div class="search-container">
+          <input type="text" id="searchInput" class="search-input" placeholder="Search tax payers...">
+          <button class="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div class="action-buttons">
+          <button class="action-btn add-btn" onclick="addTaxPayer()">
+            <i class="fas fa-user-plus"></i>
+            Add Tax Payer
+          </button>
+          <button class="action-btn print-btn" onclick="printTable()">
+            <i class="fas fa-print"></i>
+            Print
+          </button>
+        </div>
+      </div>
+
+      <!-- Tax Payers Table -->
+      <div class="table-toolbar">
+        <div class="table-limit">
+          <label for="rowsPerPage">Display</label>
+          <select id="rowsPerPage" class="rows-select">
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+          <span>tax payers</span>
+        </div>
+        <p class="table-summary" id="tableSummary"></p>
+      </div>
+
+      <div class="table-container">
+        <table class="tax-payers-table" id="taxPayersTable">
+          <thead>
+            <tr>
+              <th>ID No.</th>
+              <th>Last Name</th>
+              <th>First name</th>
+              <th>Middle Name</th>
+              <th>Birthdate</th>
+              <th>Email</th>
+              <th>Encoder</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr>
+              <td>02082601</td>
+              <td>Dela Cruz</td>
+              <td>Junjun</td>
+              <td>De Leon</td>
+              <td>01/01/2001</td>
+              <td>junjun@email.com</td>
+              <td>Mike</td>
+              <td>
+                <button class="icon-action-btn edit-btn" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="icon-action-btn delete-btn" title="Delete">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>02082602</td>
+              <td>Santos</td>
+              <td>Maria</td>
+              <td>Garcia</td>
+              <td>05/15/1995</td>
+              <td>maria@email.com</td>
+              <td>Mike</td>
+              <td>
+                <button class="icon-action-btn edit-btn" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="icon-action-btn delete-btn" title="Delete">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>02082603</td>
+              <td>Reyes</td>
+              <td>Pedro</td>
+              <td>Santos</td>
+              <td>12/20/1988</td>
+              <td>pedro@email.com</td>
+              <td>Admin</td>
+              <td>
+                <button class="icon-action-btn edit-btn" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="icon-action-btn delete-btn" title="Delete">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>02082604</td>
+              <td>Garcia</td>
+              <td>Ana</td>
+              <td>Lopez</td>
+              <td>03/08/1992</td>
+              <td>ana@email.com</td>
+              <td>Mike</td>
+              <td>
+                <button class="icon-action-btn edit-btn" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="icon-action-btn delete-btn" title="Delete">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>02082605</td>
+              <td>Mendoza</td>
+              <td>Carlos</td>
+              <td>Rivera</td>
+              <td>07/22/1990</td>
+              <td>carlos@email.com</td>
+              <td>Admin</td>
+              <td>
+                <button class="icon-action-btn edit-btn" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="icon-action-btn delete-btn" title="Delete">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="page-btn" id="prevBtn">
+          <i class="fas fa-chevron-left"></i>
+          Previous
+        </button>
+        <div class="page-numbers" id="pageNumbers"></div>
+        <button class="page-btn" id="nextBtn">
+          Next
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add Tax Payer Modal -->
+  <div class="modal" id="addTaxPayerModal">
+    <div class="modal-content modal-large">
+      <div class="modal-header">
+        <h2>Data Entry for Taxpayer</h2>
+        <button class="close-btn" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form class="modal-form" id="addTaxPayerForm">
+        <div class="form-grid">
+          <!-- Left Column -->
+          <div class="form-left">
+            <div class="form-group">
+              <label>AccountID</label>
+              <input type="text" id="accountId" readonly class="readonly-field">
+            </div>
+
+            <div class="form-group">
+              <label>LastName <span class="required">*</span></label>
+              <input type="text" id="lastName" required>
+            </div>
+
+            <div class="form-group">
+              <label>FirstName <span class="required">*</span></label>
+              <input type="text" id="firstName" required>
+            </div>
+
+            <div class="form-group">
+              <label>MiddleName</label>
+              <input type="text" id="middleName">
+            </div>
+
+            <div class="form-group">
+              <label>Address <span class="required">*</span></label>
+              <textarea id="address" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Birthdate <span class="required">*</span></label>
+              <input type="date" id="birthdate" required>
+            </div>
+
+            <div class="form-group">
+              <label>Gender <span class="required">*</span></label>
+              <select id="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Citizenship <span class="required">*</span></label>
+              <select id="citizenship" required>
+                <option value="">Select Citizenship</option>
+                <option value="Filipino">Filipino</option>
+                <option value="American">American</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Korean">Korean</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Mobile.no <span class="required">*</span></label>
+              <input type="tel" id="mobileNo" placeholder="09XXXXXXXXX" required>
+            </div>
+
+            <div class="form-group">
+              <label>Emailaddress <span class="required">*</span></label>
+              <input type="email" id="emailAddress" required>
+            </div>
+
+            <div class="form-group">
+              <label>encoded_by</label>
+              <input type="text" id="encodedBy" readonly class="readonly-field">
+            </div>
+
+            <div class="form-group">
+              <label>e_datetime</label>
+              <input type="text" id="encodedDatetime" readonly class="readonly-field">
+            </div>
+          </div>
+
+          <!-- Right Column - Photo -->
+          <div class="form-right">
+            <div class="photo-upload-section">
+              <label>photo</label>
+              <div class="photo-preview" id="photoPreview">
+                <i class="fas fa-user fa-3x"></i>
+                <p>Click to upload photo</p>
+              </div>
+              <input type="file" id="photoInput" accept="image/*" style="display: none;">
+              <button type="button" class="upload-photo-btn" onclick="triggerPhotoUpload()">
+                <i class="fas fa-camera"></i>
+                Choose Photo
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="cancel-btn" onclick="closeModal()">Close</button>
+          <button type="submit" class="submit-btn">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="Occupation.js"></script>
+</body>
+</html>

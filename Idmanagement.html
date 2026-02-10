@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PASIG Tax Admin - ID Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="Idmanagement.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <div class="logo-badge">
+          <i class="fas fa-landmark"></i>
+        </div>
+        <div class="logo-text">
+          <h2>PASIG</h2>
+          <p>Tax Administration</p>
+        </div>
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="AdminDashboard.html" class="nav-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="Occupation.html" class="nav-item">
+        <i class="fas fa-briefcase"></i>
+        <span>Occupation</span>
+      </a>
+      <a href="Transaction.html" class="nav-item">
+        <i class="fas fa-receipt"></i>
+        <span>Transactions</span>
+      </a>
+      <a href="Idmanagement.html" class="nav-item active">
+        <i class="fas fa-id-card"></i>
+        <span>ID Management</span>
+      </a>
+      <a href="Reports.html" class="nav-item">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Reports</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="user-avatar">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="user-info">
+          <h4 id="sidebarUsername">Mike</h4>
+          <p>Administrator</p>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+  <button class="sidebar-float-toggle" id="sidebarFloatToggle" aria-label="Toggle navigation">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="welcome-section">
+        <h1>ID MANAGEMENT</h1>
+      </div>
+      <div class="top-bar-actions">
+        <button class="notification-btn">
+          <i class="far fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <p class="current-date">
+          <i class="far fa-calendar"></i>
+          <span id="currentDate">February 18, 2026</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- ID Management Content -->
+    <section class="id-content">
+      
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <i class="fas fa-id-card"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Total IDs Issued</h3>
+            <p class="stat-number">1,234</p>
+            <span class="stat-change">All time</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Active IDs</h3>
+            <p class="stat-number">1,156</p>
+            <span class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 94% active rate
+            </span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon orange">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Pending Renewals</h3>
+            <p class="stat-number">45</p>
+            <span class="stat-change">Requires attention</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <i class="fas fa-print"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Printed This Month</h3>
+            <p class="stat-number">78</p>
+            <span class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 12% from last month
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <div class="search-filter-container">
+          <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search by ID or name...">
+            <button class="search-btn">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <select id="statusFilter" class="filter-select">
+            <option value="">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Expired">Expired</option>
+            <option value="Lost">Lost</option>
+            <option value="Damaged">Damaged</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+        <div class="action-buttons">
+          <button class="action-btn generate-btn" onclick="generateNewID()">
+            <i class="fas fa-plus"></i>
+            Generate ID
+          </button>
+          <button class="action-btn print-btn" onclick="printSelected()">
+            <i class="fas fa-print"></i>
+            Print Selected
+          </button>
+          <button class="action-btn export-btn" onclick="exportIDs()">
+            <i class="fas fa-file-export"></i>
+            Export
+          </button>
+        </div>
+      </div>
+
+      <!-- ID Cards Table -->
+      <div class="table-toolbar">
+        <div class="table-limit">
+          <label for="rowsPerPage">Display</label>
+          <select id="rowsPerPage" class="rows-select">
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+          <span>ID cards</span>
+        </div>
+        <p class="table-summary" id="tableSummary"></p>
+      </div>
+
+      <div class="table-container">
+        <table class="id-table" id="idTable">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAll"></th>
+              <th>ID Number</th>
+              <th>Account ID</th>
+              <th>Full Name</th>
+              <th>Issue Date</th>
+              <th>Expiry Date</th>
+              <th>Status</th>
+              <th>Last Printed</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr>
+              <td><input type="checkbox" class="row-checkbox"></td>
+              <td>ID-2026-001</td>
+              <td>02082601</td>
+              <td>Junjun Dela Cruz</td>
+              <td>01/15/2026</td>
+              <td>01/15/2027</td>
+              <td><span class="status-badge active">Active</span></td>
+              <td>01/15/2026</td>
+              <td>
+                <button class="icon-action-btn preview-btn" title="Preview ID">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="icon-action-btn print-btn-icon" title="Print ID">
+                  <i class="fas fa-print"></i>
+                </button>
+                <button class="icon-action-btn renew-btn" title="Renew ID">
+                  <i class="fas fa-sync"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-checkbox"></td>
+              <td>ID-2026-002</td>
+              <td>02082602</td>
+              <td>Maria Santos</td>
+              <td>01/18/2026</td>
+              <td>01/18/2027</td>
+              <td><span class="status-badge active">Active</span></td>
+              <td>01/18/2026</td>
+              <td>
+                <button class="icon-action-btn preview-btn" title="Preview ID">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="icon-action-btn print-btn-icon" title="Print ID">
+                  <i class="fas fa-print"></i>
+                </button>
+                <button class="icon-action-btn renew-btn" title="Renew ID">
+                  <i class="fas fa-sync"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-checkbox"></td>
+              <td>ID-2026-003</td>
+              <td>02082603</td>
+              <td>Pedro Reyes</td>
+              <td>12/20/2025</td>
+              <td>12/20/2026</td>
+              <td><span class="status-badge pending">Pending Renewal</span></td>
+              <td>12/20/2025</td>
+              <td>
+                <button class="icon-action-btn preview-btn" title="Preview ID">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="icon-action-btn print-btn-icon" title="Print ID">
+                  <i class="fas fa-print"></i>
+                </button>
+                <button class="icon-action-btn renew-btn" title="Renew ID">
+                  <i class="fas fa-sync"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-checkbox"></td>
+              <td>ID-2025-156</td>
+              <td>02082604</td>
+              <td>Ana Garcia</td>
+              <td>11/10/2025</td>
+              <td>11/10/2026</td>
+              <td><span class="status-badge active">Active</span></td>
+              <td>11/10/2025</td>
+              <td>
+                <button class="icon-action-btn preview-btn" title="Preview ID">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="icon-action-btn print-btn-icon" title="Print ID">
+                  <i class="fas fa-print"></i>
+                </button>
+                <button class="icon-action-btn renew-btn" title="Renew ID">
+                  <i class="fas fa-sync"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="row-checkbox"></td>
+              <td>ID-2025-089</td>
+              <td>02082605</td>
+              <td>Carlos Mendoza</td>
+              <td>08/15/2025</td>
+              <td>08/15/2026</td>
+              <td><span class="status-badge expired">Expired</span></td>
+              <td>08/15/2025</td>
+              <td>
+                <button class="icon-action-btn preview-btn" title="Preview ID">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="icon-action-btn print-btn-icon" title="Print ID">
+                  <i class="fas fa-print"></i>
+                </button>
+                <button class="icon-action-btn renew-btn" title="Renew ID">
+                  <i class="fas fa-sync"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="page-btn" id="prevBtn">
+          <i class="fas fa-chevron-left"></i>
+          Previous
+        </button>
+        <div class="page-numbers" id="pageNumbers"></div>
+        <button class="page-btn" id="nextBtn">
+          Next
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Generate ID Modal -->
+  <div class="modal" id="generateIDModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Generate New ID Card</h2>
+        <button class="close-btn" onclick="closeGenerateModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form class="modal-form" id="generateIDForm">
+        <div class="form-group">
+          <label>Account ID <span class="required">*</span></label>
+          <input type="text" id="accountIdInput" placeholder="Enter Account ID" required>
+          <button type="button" class="lookup-btn" onclick="lookupTaxpayerForID()">
+            <i class="fas fa-search"></i> Lookup Taxpayer
+          </button>
+        </div>
+
+        <div class="taxpayer-info" id="taxpayerInfo" style="display: none;">
+          <h4>Taxpayer Information</h4>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Full Name:</label>
+              <span id="fullNameDisplay">-</span>
+            </div>
+            <div class="info-item">
+              <label>Birthdate:</label>
+              <span id="birthdateDisplay">-</span>
+            </div>
+            <div class="info-item">
+              <label>Address:</label>
+              <span id="addressDisplay">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>ID Number</label>
+            <input type="text" id="idNumber" readonly class="readonly-field">
+          </div>
+          <div class="form-group">
+            <label>Issue Date</label>
+            <input type="date" id="issueDate" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Expiry Date</label>
+          <input type="date" id="expiryDate" required>
+        </div>
+
+        <div class="form-group">
+          <label>Notes</label>
+          <textarea id="notes" rows="3" placeholder="Additional notes (optional)"></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="cancel-btn" onclick="closeGenerateModal()">Cancel</button>
+          <button type="submit" class="submit-btn">Generate & Print ID</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Preview ID Modal -->
+  <div class="modal" id="previewIDModal">
+    <div class="modal-content modal-wide">
+      <div class="modal-header">
+        <h2>ID Card Preview</h2>
+        <button class="close-btn" onclick="closePreviewModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="id-card-preview">
+          <!-- Front of ID -->
+          <div class="id-card front">
+            <div class="id-header">
+              <div class="id-logo">
+                <i class="fas fa-landmark"></i>
+              </div>
+              <div class="id-title">
+                <h3>PASIG CITY</h3>
+                <p>Tax Administration Office</p>
+              </div>
+            </div>
+            <div class="id-body">
+              <div class="id-photo">
+                <i class="fas fa-user fa-3x"></i>
+              </div>
+              <div class="id-details">
+                <div class="id-field">
+                  <label>ID No.:</label>
+                  <span id="previewIDNo">ID-2026-001</span>
+                </div>
+                <div class="id-field">
+                  <label>Name:</label>
+                  <span id="previewName">JUNJUN DELA CRUZ</span>
+                </div>
+                <div class="id-field">
+                  <label>Account ID:</label>
+                  <span id="previewAccountID">02082601</span>
+                </div>
+                <div class="id-field">
+                  <label>Valid Until:</label>
+                  <span id="previewExpiry">01/15/2027</span>
+                </div>
+              </div>
+            </div>
+            <div class="id-footer">
+              <div class="barcode">|||||| |||| ||||| |||| ||||||</div>
+              <p class="id-warning">This card is property of PASIG Tax Administration</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="cancel-btn" onclick="closePreviewModal()">Close</button>
+          <button type="button" class="submit-btn" onclick="printIDCard()">
+            <i class="fas fa-print"></i> Print ID Card
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="Idmanagement.js"></script>
+</body>
+</html>
